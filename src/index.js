@@ -1,18 +1,28 @@
-const { router, get , post} = require('microrouter');
+const { json } = require("micro");
+const { router, get, post } = require("microrouter");
+const { Movie } = require("./db");
 
-const index = (req, res) => JSON.stringify([]);
+const index = async () => {
+  let rows = await Movie.findAll();
+  return JSON.stringify(rows);
+};
 
-const addRecord = (req, res) => null;
+const addRecord = async (req) => {
+  const { text } = await json(req);
+  await Movie.create({
+    text: text
+  });
+};
 
 const pages = (req, res) => {
-    return JSON.stringify({
-        query: req.query,
-        params: req.params
-    })
+  return JSON.stringify({
+    query: req.query,
+    params: req.params
+  });
 };
 
 module.exports = router(
-    get('/', index),
-    post('/', addRecord),
-    get('/pages/:page/*', pages)
+  get("/", index),
+  get("/pages/:page/*", pages),
+  post("/", addRecord),
 );

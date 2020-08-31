@@ -1,7 +1,25 @@
-const {Sequelize} = require('sequelize');
+const { Sequelize, Model, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize('movies', 'admin', 'admin', {
-    dialect: 'postgres'
+const sequelize = new Sequelize("movie", "postgres", "admin", {
+  dialect: "postgres"
 });
 
-module.exports = sequelize
+class Movie extends Model {
+}
+
+Movie.init(
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    text: DataTypes.STRING
+  },
+  {
+    sequelize,
+    modelName: "movies"
+  }
+);
+
+sequelize.sync();
+
+module.exports = {
+  Movie
+};
