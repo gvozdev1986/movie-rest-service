@@ -7,7 +7,7 @@ POST http://87.252.241.114:3000/
 Content-Type: application/json
 
 {
-  "id": "1",
+  "id": 1,
   "text": "third one"
 }
 

@@ -14,8 +14,7 @@ const movieId = async (req) => {
 };
 
 const addRecord = async (req) => {
-  const { id } = await json(id);
-  const { text } = await json(req);
+  const { id, text } = await json(req);
   await Movie.create({
     id: id,
     text: text
