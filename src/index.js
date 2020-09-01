@@ -7,6 +7,12 @@ const index = async () => {
   return JSON.stringify(rows);
 };
 
+const movieId = async (req) => {
+  const { id } = await json(req);
+  let movieById = await Movie.findByPk(id);
+  return JSON.stringify(movieById);
+};
+
 const addRecord = async (req) => {
   const { text } = await json(req);
   await Movie.create({
@@ -22,7 +28,8 @@ const pages = (req, res) => {
 };
 
 module.exports = router(
-  get("/", index),
-  get("/pages/:page/*", pages),
-  post("/", addRecord),
+  get('/api/movie?id=', movieId),
+  get('/', index),
+  get('/pages/:page/*', pages),
+  post('/', addRecord),
 );
